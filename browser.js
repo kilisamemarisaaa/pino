@@ -119,12 +119,13 @@ function pino (opts, destination) {
     }
     const valuesMap = getLevels(opts).values
     const destinationWrite = {}
-    levels.forEach(level => {
+    for (let i = 0; i < levels.length; i++) {
+      const level = levels[i]
       destinationWrite[level] = function (...args) {
         destination.lastLevel = valuesMap[level]
         destination.write(...args)
       }
-    })
+    }
     proto = destinationWrite
     opts.browser.asObject = true
   }
